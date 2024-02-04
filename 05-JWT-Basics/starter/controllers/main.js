@@ -1,11 +1,11 @@
-const CustomApiError = require('../errors/custom-error')
+const {BadRequest} = require('../errors')
 const jwt = require('jsonwebtoken')
 
 const login = async (req, res)=>{
     const {username, password} = req.body
     console.log(username, password)
     if(!username||!password){
-        throw new CustomApiError('please provide valid username and password',400)
+        throw new BadRequest('please provide valid username and password')
     }
     const id = new Date().getDate()
     const token = jwt.sign({id, username}, process.env.JWT_SECRET,{expiresIn:'30d'})
